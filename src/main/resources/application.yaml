@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: eureka-server-ha
+security:
+  basic:
+    enabled: true
+  user:
+    name: eureka
+    password: eureka
+---
+spring:
+  profiles: peer1
+server:
+  port: 8761
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:eureka@peer2:8762/eureka/
+  instance:
+    hostname: peer1
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 8762
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:eureka@peer1:8761/eureka/
+  instance:
+    hostname: peer2
+
+
+
